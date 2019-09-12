@@ -23,7 +23,9 @@ mongoose
     user: process.env.USERNAME,
     pass: process.env.PASSWORD,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
   })
   .then(
     _ => {
