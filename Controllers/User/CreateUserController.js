@@ -1,4 +1,4 @@
-import UserModel from "./../Models/User.model";
+import UserModel from "../../Models/User.model";
 
 export class CreateUserController {
   /**
@@ -7,6 +7,7 @@ export class CreateUserController {
    */
   constructor(data) {
     this._data = data;
+    console.log("data -> ", data)
   }
 
   /**

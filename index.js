@@ -20,6 +20,8 @@ require("dotenv").config();
 // [7] Connecting to DB
 mongoose
   .connect(process.env.DB_HOST, {
+    user: process.env.USERNAME,
+    pass: process.env.PASSWORD,
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

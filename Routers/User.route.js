@@ -1,4 +1,4 @@
-import { CreateUserController } from "../Controllers/CreateUserController";
+import { CreateUserController } from "../Controllers/User/CreateUserController";
 import SuccessResponse from "../Responses/SuccessResponse";
 import InternalServerErrorResponse from "../Responses/InternalServerErrorResponse";
 
