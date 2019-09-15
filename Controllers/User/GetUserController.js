@@ -1,6 +1,6 @@
 import UserModel from "../../Models/User.model";
-import User from "../../Models/User.model";
 import { NotFoundException } from "../../Exceptions/NotFoundException";
+import message from "../../Constants/message.constant";
 
 export class GetUserController {
   /**
@@ -26,7 +26,7 @@ export class GetUserController {
     try {
       const userResult = UserModel.findById(userId).lean();
       if (!userResult) {
-        throw new NotFoundException("Couldn't find any user data!");
+        throw new NotFoundException(message.CANNOT_FIND_DATA);
       }
       return userResult;
     } catch (error) {

@@ -7,7 +7,6 @@ export class CreateUserController {
    */
   constructor(data) {
     this._data = data;
-    console.log("data -> ", data)
   }
 
   /**

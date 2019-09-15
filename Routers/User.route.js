@@ -6,6 +6,7 @@ import { RemoveUserController } from "../Controllers/User/RemoveUserController";
 import { NotFoundException } from "../Exceptions/NotFoundException";
 import NotFoundResponse from "../Responses/NotFoundResponse";
 import { GetUserController } from "../Controllers/User/GetUserController";
+import message from "../Constants/message.constant";
 
 module.exports = server => {
   /**
@@ -14,7 +15,11 @@ module.exports = server => {
   server.post("/users", async (req, res) => {
     try {
       const result = await new CreateUserController(req.body).store();
-      SuccessResponse(res, "Successfully create new user", result);
+      SuccessResponse(
+        res,
+        message.CREATE_SUCCESS.replace("{args}", "user"),
+        result
+      );
     } catch (exception) {
       InternalServerErrorResponse(res, exception.message);
     }
@@ -28,7 +33,11 @@ module.exports = server => {
       const id = req.params.id;
       const body = req.body;
       const result = await new UpdateUserController(id, body).update();
-      SuccessResponse(res, "Successfully update user data!", result);
+      SuccessResponse(
+        res,
+        message.UPDATE_SUCCESS.replace("{args}", "user"),
+        result
+      );
     } catch (exception) {
       if (exception instanceof NotFoundException)
         NotFoundResponse(res, exception.message);
@@ -42,7 +51,11 @@ module.exports = server => {
   server.del("/users", async (req, res) => {
     try {
       await new RemoveUserController(req.body.userId).remove();
-      SuccessResponse(res, "Successfully remove user!", null);
+      SuccessResponse(
+        res,
+        message.REMOVE_SUCCESS.replace("{args}", "user"),
+        null
+      );
     } catch (exception) {
       if (exception instanceof NotFoundException)
         NotFoundResponse(res, exception.message);
@@ -56,7 +69,11 @@ module.exports = server => {
   server.get("/users", async (req, res) => {
     try {
       const result = await new GetUserController().all();
-      SuccessResponse(res, "Successfully get all users!", result);
+      SuccessResponse(
+        res,
+        message.GET_ALL_SUCCESS.replace("{args}", "users"),
+        result
+      );
     } catch (exception) {
       InternalServerErrorResponse(res, exception.message);
     }
@@ -68,7 +85,11 @@ module.exports = server => {
   server.get("/users/:id", async (req, res) => {
     try {
       const result = await new GetUserController().detail(req.params.id);
-      SuccessResponse(res, "Successfully get detail user!", result);
+      SuccessResponse(
+        res,
+        message.GET_DETAIL_SUCCESS.replace("{args}", "user"),
+        result
+      );
     } catch (exception) {
       if (exception instanceof NotFoundException)
         NotFoundResponse(res, exception.message);

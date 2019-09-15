@@ -1,5 +1,6 @@
 import UserModel from "../../Models/User.model";
 import { NotFoundException } from "../../Exceptions/NotFoundException";
+import message from "../../Constants/message.constant";
 
 export class UpdateUserController {
   /**
@@ -31,7 +32,7 @@ export class UpdateUserController {
       );
 
       if (!updated) {
-        throw new NotFoundException("Cloud not find any user data!");
+        throw new NotFoundException(message.CANNOT_FIND_DATA);
       }
 
       return updated;

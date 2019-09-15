@@ -1,5 +1,6 @@
 import UserModel from "../../Models/User.model";
 import { NotFoundException } from "../../Exceptions/NotFoundException";
+import message from "../../Constants/message.constant";
 
 export class RemoveUserController {
   /**
@@ -21,7 +22,7 @@ export class RemoveUserController {
       const removed = await UserModel.findByIdAndRemove(this._userId);
 
       if (!removed) {
-        throw new NotFoundException("Couldn't find any user data!");
+        throw new NotFoundException(message.CANNOT_FIND_DATA);
       }
 
       return removed;
