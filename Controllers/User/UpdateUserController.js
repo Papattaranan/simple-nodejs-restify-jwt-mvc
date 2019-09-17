@@ -31,11 +31,11 @@ export class UpdateUserController {
         }
       );
 
-      if (!updated) {
+      if (updated !== null) {
+        return updated;
+      } else {
         throw new NotFoundException(message.CANNOT_FIND_DATA);
       }
-
-      return updated;
     } catch (exception) {
       throw exception;
     }

@@ -21,11 +21,11 @@ export class RemoveUserController {
     try {
       const removed = await UserModel.findByIdAndRemove(this._userId);
 
-      if (!removed) {
+      if (removed !== null) {
+        return removed;
+      } else {
         throw new NotFoundException(message.CANNOT_FIND_DATA);
       }
-
-      return removed;
     } catch (exception) {
       throw exception;
     }

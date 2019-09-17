@@ -20,8 +20,8 @@ require("dotenv").config();
 // [7] Connecting to DB
 mongoose
   .connect(process.env.DB_HOST, {
-    user: process.env.USERNAME,
-    pass: process.env.PASSWORD,
+    user: encodeURI(process.env.USERNAME),
+    pass: encodeURI(process.env.PASSWORD),
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -44,6 +44,7 @@ server.get("/", (req, res) => {
 
 // [4] Call routers
 require("./Routers/User.route")(server);
+require("./Routers/Auth.route")(server);
 
 // [2] Starting server
 server.listen(3000, () => {

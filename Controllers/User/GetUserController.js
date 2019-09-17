@@ -25,10 +25,11 @@ export class GetUserController {
   async detail(userId) {
     try {
       const userResult = UserModel.findById(userId).lean();
-      if (!userResult) {
+      if (userResult !== null) {
+        return userResult;
+      } else {
         throw new NotFoundException(message.CANNOT_FIND_DATA);
       }
-      return userResult;
     } catch (error) {
       throw error;
     }

@@ -10,8 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.1.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.0",
-    "restify": "^8.4.0"
+    "restify": "^8.4.0",
+    "saslprep": "^1.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
