@@ -15,7 +15,11 @@ export class CreateUserController {
    */
   async store() {
     try {
-      return await UserModel.create(this._data);
+      let user = new UserModel(this._data);
+      await user.save();
+      const token = await user.generateAuthToken();
+      user = await user.removePasswordField();
+      return { user, token };
     } catch (error) {
       throw error;
     }

@@ -5,6 +5,8 @@ import { UnauthorizedException } from "../Exceptions/UnauthorizedException";
 import UnauthorizedResponse from "../Responses/UnauthorizedResponse";
 import InternalServerErrorResponse from "../Responses/InternalServerErrorResponse";
 
+import jwt from "jsonwebtoken";
+
 module.exports = server => {
   /**
    * Login route
@@ -18,6 +20,36 @@ module.exports = server => {
       if (exception instanceof UnauthorizedException)
         UnauthorizedResponse(res, exception.message);
       else InternalServerErrorResponse(res, exception.message);
+    }
+  });
+
+  /**
+   * Validate token route
+   */
+  server.get("/auth/validate", async (req, res) => {
+    console.log(req.headers)
+    try {
+      /**
+       * อ่านไฟล์ .env
+       */
+      require("dotenv").config({
+        path: "./../.env"
+      });
+
+      /**
+       * Verify token
+       */
+      jwt.verify(req.headers.token, process.env.JWT_SECRET, (err, result) => {
+        if (err) {
+          throw err;
+        } else {
+          SuccessResponse(res, message.SUCCESS_VALIDATE, result)
+        }
+      });
+    } catch (exception) {
+      if (exception instanceof jwt.TokenExpiredError)
+        UnauthorizedResponse(res, message.TOKEN_EXPIRED);
+      else InternalServerErrorResponse(res, message.INVALID_TOKEN);
     }
   });
 };

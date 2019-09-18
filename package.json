@@ -10,10 +10,15 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.1.0",
+    "is_js": "^0.9.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.0",
+    "pbkdf2": "^3.0.17",
     "restify": "^8.4.0",
-    "saslprep": "^1.0.3"
+    "restify-jwt-community": "^1.1.0",
+    "saslprep": "^1.0.3",
+    "validator": "^11.1.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

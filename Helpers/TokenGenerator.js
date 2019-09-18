@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import config from "./../Config";
 
 export class TokenGenerator {
   /**
@@ -12,18 +13,12 @@ export class TokenGenerator {
   /**
    * Generate token
    *
-   * @returns {*}
+   * @returns {any}
    */
   generate() {
-    /**
-     * อ่านไฟล์ .env
-     */
-    require("dotenv").config({
-      path: "./../.env"
-    });
-
-    return jwt.sign(this._data, process.env.JWT_SECRET, {
-      expiresIn: 200 // token จะหมดอายุใน 200 นาที
+    console.log('config.JWT_EXPIRES -> ', config.JWT_EXPIRES)
+    return jwt.sign(this._data, config.JWT_SECRET, {
+      expiresIn: config.JWT_EXPIRES // token จะหมดอายุใน 200 นาที
     });
   }
 }

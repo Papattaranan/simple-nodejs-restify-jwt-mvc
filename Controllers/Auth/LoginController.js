@@ -1,16 +1,15 @@
 import UserModel from "../../Models/User.model";
-import UnauthorizedException from "../../Exceptions/UnauthorizedException";
+import { UnauthorizedException } from "./../../Exceptions/UnauthorizedException";
 import message from "../../Constants/message.constant";
-import { TokenGenerator } from "../../Helpers/TokenGenerator";
 
 export class LoginController {
   /**
    * LoginController constructor
-   * @param {String} username
+   * @param {String} email
    * @param {String} password
    */
-  constructor(username, password) {
-    this._username = username;
+  constructor(email, password) {
+    this._email = email;
     this._password = password;
   }
 
@@ -21,24 +20,18 @@ export class LoginController {
    */
   async login() {
     try {
-      const result = await UserModel.findOne({
-        username: this._username,
-        password: this._password
-      })
-        .select("_id + name + phone + username")
-        .lean();
+      const user = await UserModel.findByCredentials(
+        this._email,
+        this._password
+      );
 
-      if (result !== null) {
-        // สร้าง token
-        const token = new TokenGenerator(result).generate();
-        console.log(token)
-
-        return {
-          token: token
-        };
-      } else {
+      if (!user) {
         throw new UnauthorizedException(message.INVALID_USER_OR_PASSWORD);
       }
+
+      const token = await user.generateAuthToken();
+      const result = user.removePasswordField()
+      return { result, token };
     } catch (error) {
       throw error;
     }
