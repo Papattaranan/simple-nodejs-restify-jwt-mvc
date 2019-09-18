@@ -24,7 +24,9 @@ export class GetUserController {
    */
   async detail(userId) {
     try {
-      const userResult = UserModel.findById(userId).lean();
+      let userResult = await UserModel.findById(userId)
+        .select("-password")
+        .lean();
       if (userResult !== null) {
         return userResult;
       } else {
