@@ -20,7 +20,7 @@ module.exports = {
   DB_PASS: process.env["PASSWORD"],
 
   // building route paths
-  basePath: path => {
+  basePath: (path) => {
     return API_ROOT.replace(/\/$/, "") + "/" + path.replace(/^\//, "");
   }
 };
